@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anny Cheng ㋡</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/593ed42b03.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container p-0" id="app">
+    <!--navbar-->
+    <nav class="navbar navbar-expand-md navbar-light p-0">
+      <div class="container-fluid border border-dark px-0 d-flex">
+        <a class="navbar-brand  border-end border-dark m-0 p-2" href="#">
+          <img :src="logo.img" :alt="logo.name" class="rounded-circle border border-dark">
+        </a>
+        <h1 class="m-0 flex-grow-1 text-center border-end border-dark">
+          {{logo.name}}
+          <span class="d-none d-md-inline-block ms-2">㋡</span>
+        </h1>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+          <ul class="nav d-none d-md-flex" id="accordion">
+            <li class="nav-item border-end border-dark flex-fill">
+              <a class="accordion-button collapsed" data-bs-toggle="collapse" href="#about">About</a>
+            </li>
+            <li class="nav-item flex-fill">
+              <a class="accordion-button collapsed" data-bs-toggle="collapse" href="#work">Work</a>
+            </li>
+            <li class="nav-item border-start border-dark flex-fill">
+              <a class="accordion-button collapsed" data-bs-toggle="collapse" href="#contact">Contact</a>
+            </li>
+          </ul>
+          <div class="d-block d-md-none border-top border-dark p-3">
+            <p class="mb-2">{{about.mobile}}</p>
+            <span class="mb-2">Contact me：</span>
+            <a v-for="(item,key) in contacts" :href="item.link" target="_blank" :key="key">
+              <i :class="item.icon" class="fa-lg pe-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!--desktop accordion content-->
+    <div class="d-none d-md-block" id="accordionContent">
+      <div class="fade accordion-collapse collapse border border-top-0 border-dark p-3" id="about">
+        <p class="m-0">{{about.desktop}}
+        </p>
+      </div>
+      <div class="fade accordion-collapse collapse border border-top-0 border-dark p-3" id="work">
+        <p class=" m-0">{{work}}</p>
+      </div>
+      <div class="fade accordion-collapse collapse border border-top-0 border-dark p-3" id="contact">
+        <ul class="m-0 ps-3">
+          <li v-for="(item,key) in contacts">
+            <a :href="item.link" target="_blank">{{item.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--header-->
+    <header class="d-none d-md-block border border-dark p-4 mt-3">
+      <h1 class="p-0 m-0">Hi, I'm <span class="text-empty">Anny Cheng</span>.<br /> I <span
+          class="text-empty">build</span>
+        websites, <span class="text-empty">make</span> potteries, <span class="text-empty">play</span> badminton
+        & <span class="text-empty">hike</span> in the mountains.</h1>
+    </header>
+    <!--selected works-->
+    <div class="row mt-3">
+      <div class="btn-group" role="group">
+        <input type="radio" class="btn-check" name="btntag" id="btntagAll" autocomplete="off" checked
+          @click="tagFilter=''">
+        <label class="btn btn-outline-dark  rounded-0" for="btntagAll">All</label>
+        <input type="radio" class="btn-check" name="btntag" id="btntagVue" autocomplete="off" @click="tagFilter='Vue'">
+        <label class="btn btn-outline-dark  rounded-0" for="btntagVue">Vue</label>
+        <input type="radio" class="btn-check" name="btntag" id="btntagBS" autocomplete="off"
+          @click="tagFilter='Bootstrap'">
+        <label class="btn btn-outline-dark  rounded-0" for="btntagBS">Bootstrap</label>
+        <input type="radio" class="btn-check" name="btntag" id="btntagJS" autocomplete="off"
+          @click="tagFilter='JavaScript'">
+        <label class="btn btn-outline-dark rounded-0" for="btntagJS">JavaScript</label>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="work col-12 col-md-6 col-lg-4 mb-3" v-for="(item,key) in filterWorks" :key="key">
+        <div class="item border border-dark p-3 position-relative">
+          <div class="position-relative">
+            <img class="img-fluid w-100 border border-dark" :src="item.img" :alt="item.name">
+            <span class="badge text-light position-absolute top-0 start-0">{{item.tag.skill}}</span>
+            <a class="btn text-light rounded-pill position-absolute top-50 start-50" :href="item.link" target="_blank">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+          <h2 class="text-center m-0 pt-2">{{item.name}}</h2>
+          <p class="m-0">{{item.description}}</p>
+          <a :href="item.link" class="stretched-link" target="_blank"></a>
+        </div>
+      </div>
+    </div>
+    <!--footer-->
+    <footer>
+      <div class="border border-dark text-center py-2">copyright &copy; 2021 Anny Cheng.</div>
+    </footer>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+  <script type="module">
+    import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.4/vue.esm-browser.min.js'
+    const app = createApp({
+      data() {
+        return {
+          tagFilter: '',
+          logo: {
+            img: "https://picsum.photos/38/38?random=1",
+            name: "Anny Cheng",
+          },
+          about: {
+            mobile: "Hey there, I'm Anny Cheng, a beginner front-end developer based in Taipei, Taiwan.㋡",
+            desktop: "I used to be a project manager on urban renewal with 2.5 years experience in communication and problem-solving. Currently I'm curious about web front-end development & digital marketing, and have taught myself front-end skills, such as HTML/CSS/JavaScript, Bootstrap, Vue, Sass & RWD, also applyed these skills to my projects. Welcome to my website, scroll down to see more."
+          },
+          work: "To be filled.",
+          contacts: [
+            {
+              name: "Email：amy853310@gmail.com",
+              link: "mailto:amy853310@gmail.com",
+              icon: "fas fa-envelope"
+            },
+            {
+              name: "LinkedIn：Yu Cheng",
+              link: "https://www.linkedin.com/in/yu-cheng-19960228/",
+              icon: "fab fa-linkedin-in"
+            },
+            {
+              name: "GitHub：chengyuu",
+              link: "https://github.com/chengyuu",
+              icon: "fab fa-github"
+            },
+            {
+              name: "CodePen：chengyu0228",
+              link: "https://codepen.io/chengyu0228/",
+              icon: "fab fa-codepen"
+            },
+          ],
+          works: [
+            {
+              name: "Countries Website",
+              img: "img/countries website.png",
+              tag: {
+                skill: "Vue",
+                time: "2021"
+              },
+              description: "Used Fetch API to get data from REST COUNTRIES, and created a website to introduce countries in the world with Vue v3.",
+              link: "https://codepen.io/chengyu0228/full/OJWWLgZ"
+            },
+            {
+              name: "Funding Platform",
+              img: "img/funding platform.png",
+              tag: {
+                skill: "Bootstrap",
+                time: "2021"
+              },
+              description: "Converted design layouts to responsive website using Bootstrap v5, and customized by compiling Sass source files.",
+              link: "https://chengyuu.github.io/Bootstrap5-practice/"
+            },
+            {
+              name: "Dating Site",
+              img: "img/dating site.png",
+              tag: {
+                skill: "Vue",
+                time: "2021"
+              },
+              description: "Used axios to consume API from random user data, and imitated a dating site with Vue v3.",
+              link: "https://codepen.io/chengyu0228/full/mdmWLqz"
+            },
+            {
+              name: "JavaScript 30",
+              img: "img/whack-a-mole game.png",
+              tag: {
+                skill: "JavaScript",
+                time: "2021"
+              },
+              description: "A series of pure javascript courses from Wes Bos, creating functions like Clock, Countdown Timer, Whack-a-mole Game, etc.",
+              link: "https://chengyuu.github.io/javascript30/javascript30-30/javascript30-30.html"
+            },
+          ]
+        }
+      },
+      methods: {},
+      computed: {
+        filterWorks() {
+          const newWorks = this.works.filter(item => {
+            return item.tag.skill === this.tagFilter
+          })
+          if (!this.tagFilter) return this.works
+          return newWorks
+        }
+      },
+      mounted() { },
+    })
+    app.mount('#app')
+  </script>
+</body>
+
+</html>

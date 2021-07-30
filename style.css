@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap');
+body,html {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 400;
+}
+body {
+  padding: 1rem 1.4rem;
+  background: #e1e1e1;
+  color: #212529;
+}
+h1{  
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-style: italic;
+  padding: .875rem 0;
+}
+h2{  
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-style: italic;
+}
+a, .nav-link {
+  color: #212529;
+  text-decoration: none;
+}
+img{
+  filter: grayscale(100%);
+  transition: all .5s;
+}
+header h1{
+  font-size: 3rem;
+}
+.text-empty {
+  display: inline-block;
+  color: #f8f9fa;
+  text-shadow: 1px 1px 1px #212529, 0 -1px 1px #212529, 1px 1px 1px #212529, -1px 0 0 #212529, 1px 1px 0 #212529, 1px 0 0 #212529, 0 -1px 0 #212529;
+  cursor: pointer;
+  transition: all .5s;
+}
+.text-empty:hover {
+  color:#F5DD9D;
+  transform: translateY(-5px);  
+}
+.btn-outline-dark{
+  background: #f8f9fa;
+  font-weight: 500;
+  transition: all .5s;
+}
+.btn-check:active + .btn-outline-dark, .btn-check:checked + .btn-outline-dark, .btn-outline-dark.active, .btn-outline-dark.dropdown-toggle.show, .btn-outline-dark:active,.btn-outline-dark:hover{
+  color: #212529;
+  background: #F5DD9D;
+}
+#about p{
+  column-count: 2;
+  column-gap: 5%;
+  column-rule: 1px solid #212529;
+}
+header,nav,#accordionContent,.item,footer{
+  background: #f8f9fa;
+  transition: all .5s;
+}
+.btn-outline-dark:hover,.item:hover{
+  background: #F5DD9D;
+  transform: translateY(-5px);
+}
+.item:hover{
+  box-shadow:10px 10px 0 #212529;
+}
+.btn-outline-dark:hover{  
+  box-shadow:5px 5px 0 #212529;
+}
+.item .badge{
+  background: rgba(0, 0, 0, .8);
+  z-index: -1;
+  visibility: hidden;
+  transform: 
+  translateX(-50px) translateY(.75rem);
+  transition: transform .5s ease;
+}
+.item .btn{
+  background: rgba(0, 0, 0, .8);
+  z-index: -1;
+  visibility: hidden;
+  transform: translateX(-100%) translateY(-40%);
+  transition: transform .5s ease;
+}
+.item:hover .badge{
+  z-index: 100;
+  visibility: visible;
+  transform: 
+  translateX(.75rem) translateY(.75rem);
+}
+.item:hover .btn{
+  z-index: 100;
+  visibility: visible;
+  transform: translateX(-40%) translateY(-40%);
+}
+.item:hover img{
+  filter: grayscale(40%);
+}
+.accordion-button{
+  background: transparent;
+}
+.accordion-button:not(.collapsed){
+  background: #F5DD9D;
+}
+@media screen and (max-width: 767px){
+  h1{
+    font-size: 1.25rem;    
+    padding: 1rem 0;
+  }
+}
