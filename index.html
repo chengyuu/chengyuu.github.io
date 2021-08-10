@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Anny Cheng ㋡</title>
+  <title>Anny Cheng</title>
+  <link rel="shortcut icon" href="favicon.ico" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
@@ -16,12 +17,25 @@
     <!--navbar-->
     <nav class="navbar navbar-expand-md navbar-light p-0">
       <div class="container-fluid border border-dark px-0 d-flex">
-        <a class="navbar-brand  border-end border-dark m-0 p-2" href="#">
-          <img :src="logo.img" :alt="logo.name" class="rounded-circle border border-dark">
+        <a class="navbar-brand  border-end border-dark m-0 p-2" :href="logo.link">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+            <mask id="mask__beam" maskUnits="userSpaceOnUse" x="0" y="0" width="36" height="36">
+              <rect width="36" height="36" rx="72" fill="white"></rect>
+            </mask>
+            <g mask="url(#mask__beam)">
+              <rect width="36" height="36" fill="#212529"></rect>
+              <rect x="0" y="0" width="36" height="36" transform="translate(4 4) rotate(350 18 18) scale(1.2)"
+                fill="#f5dd9d" rx="6"></rect>
+              <g transform="translate(6 -6) rotate(0 18 18)">
+                <path d="M15 21c2 1 4 1 6 0" stroke="black" fill="none" stroke-linecap="round"></path>
+                <rect x="14" y="14" width="1.5" height="2" rx="1" stroke="none" fill="black"></rect>
+                <rect x="20" y="14" width="1.5" height="2" rx="1" stroke="none" fill="black"></rect>
+              </g>
+            </g>
+          </svg>
         </a>
         <h1 class="m-0 flex-grow-1 text-center border-end border-dark">
           {{logo.name}}
-          <span class="d-none d-md-inline-block ms-2">㋡</span>
         </h1>
         <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
@@ -32,7 +46,7 @@
               <a class="accordion-button collapsed" data-bs-toggle="collapse" href="#about">About</a>
             </li>
             <li class="nav-item flex-fill">
-              <a class="accordion-button collapsed" data-bs-toggle="collapse" href="#work">Work</a>
+              <a class="accordion-button collapsed" href="#work" @click="{isShow=false;tagFilter=''}">Work</a>
             </li>
             <li class="nav-item border-start border-dark flex-fill">
               <a class="accordion-button collapsed" data-bs-toggle="collapse" href="#contact">Contact</a>
@@ -40,7 +54,6 @@
           </ul>
           <div class="d-block d-md-none border-top border-dark p-3">
             <p class="mb-2">{{about.mobile}}</p>
-            <span class="mb-2">Contact me：</span>
             <a v-for="(item,key) in contacts" :href="item.link" target="_blank" :key="key">
               <i :class="item.icon" class="fa-lg pe-1"></i>
             </a>
@@ -51,11 +64,11 @@
     <!--desktop accordion content-->
     <div class="d-none d-md-block" id="accordionContent">
       <div class="fade accordion-collapse collapse border border-top-0 border-dark p-3" id="about">
-        <p class="m-0">{{about.desktop}}
-        </p>
-      </div>
-      <div class="fade accordion-collapse collapse border border-top-0 border-dark p-3" id="work">
-        <p class=" m-0">{{work}}</p>
+        <div class="row">
+          <div class="col-6" v-for="item in about.desktop">
+            {{item}}
+          </div>
+        </div>
       </div>
       <div class="fade accordion-collapse collapse border border-top-0 border-dark p-3" id="contact">
         <ul class="m-0 ps-3">
@@ -65,146 +78,205 @@
         </ul>
       </div>
     </div>
-    <!--header-->
-    <header class="d-none d-md-block border border-dark p-4 mt-3">
-      <h1 class="p-0 m-0">Hi, I'm <span class="text-empty">Anny Cheng</span>.<br /> I <span
-          class="text-empty">build</span>
-        websites, <span class="text-empty">make</span> potteries, <span class="text-empty">play</span> badminton
-        & <span class="text-empty">hike</span> in the mountains.</h1>
-    </header>
-    <!--selected works-->
-    <div class="row mt-3">
-      <div class="btn-group" role="group">
-        <input type="radio" class="btn-check" name="btntag" id="btntagAll" autocomplete="off" checked
-          @click="tagFilter=''">
-        <label class="btn btn-outline-dark  rounded-0" for="btntagAll">All</label>
-        <input type="radio" class="btn-check" name="btntag" id="btntagVue" autocomplete="off" @click="tagFilter='Vue'">
-        <label class="btn btn-outline-dark  rounded-0" for="btntagVue">Vue</label>
-        <input type="radio" class="btn-check" name="btntag" id="btntagBS" autocomplete="off"
-          @click="tagFilter='Bootstrap'">
-        <label class="btn btn-outline-dark  rounded-0" for="btntagBS">Bootstrap</label>
-        <input type="radio" class="btn-check" name="btntag" id="btntagJS" autocomplete="off"
-          @click="tagFilter='JavaScript'">
-        <label class="btn btn-outline-dark rounded-0" for="btntagJS">JavaScript</label>
+    <main v-show="!isShow">
+      <!--header-->
+      <header class="d-none d-md-block border border-dark p-4 mt-3">
+        <h1 class="p-0 m-0">Hi, I'm <span class="text-empty">Anny Cheng</span>.<br /> I <span
+            class="text-empty">build</span>
+          websites, <span class="text-empty">make</span> potteries, <span class="text-empty">play</span> badminton
+          & <span class="text-empty">hike</span> in the mountains.</h1>
+      </header>
+      <!--works navbar-->
+      <div class="row mt-3" id="work">
+        <div class="btn-group flex-wrap" role="group">
+          <button type="button" class="btn btn-outline-dark rounded-0" @click="tagFilter=''"
+            :class="{active:tagFilter===''}">All</button>
+          <button type="button" class="btn btn-outline-dark rounded-0" @click="tagFilter='Vue'"
+            :class="{active:tagFilter==='Vue'}">Vue</button>
+          <button type="button" class="btn btn-outline-dark rounded-0" @click="tagFilter='Bootstrap'"
+            :class="{active:tagFilter==='Bootstrap'}">Bootstrap</button>
+          <button type="button" class="btn btn-outline-dark  rounded-0" @click="tagFilter='JavaScript'"
+            :class="{active:tagFilter==='JavaScript'}">JavaScript</button>
+        </div>
       </div>
-    </div>
-    <div class="row mt-3">
-      <div class="work col-12 col-md-6 col-lg-4 mb-3" v-for="(item,key) in filterWorks" :key="key">
-        <div class="item border border-dark p-3 position-relative">
-          <div class="position-relative">
-            <img class="img-fluid w-100 border border-dark" :src="item.img" :alt="item.name">
-            <span class="badge text-light position-absolute top-0 start-0">{{item.tag.skill}}</span>
-            <a class="btn text-light rounded-pill position-absolute top-50 start-50" :href="item.link" target="_blank">
-              <i class="fas fa-external-link-alt"></i>
-            </a>
+      <!--works list-->
+      <div class="row mt-3">
+        <div class="work col-12 col-md-6 col-lg-4 mb-3" v-for="(item,index) in filterWorks" :key="index"
+          @click="showDetail(item)">
+          <div class="item border border-dark p-3 position-relative">
+            <div class="position-relative">
+              <img class="img-fluid w-100 border border-dark" :src="item.imgCover" :alt="item.name">
+              <span class="badge text-light position-absolute top-0 start-0">{{item.skill}}</span>
+              <button class="btn text-light rounded-circle position-absolute top-50 start-50" @click="showDetail(item)">
+                <i class="fas fa-external-link-alt"></i>
+              </button>
+            </div>
+            <h2 class="text-center m-0 pt-2">{{item.name}}</h2>
           </div>
-          <h2 class="text-center m-0 pt-2">{{item.name}}</h2>
-          <p class="m-0">{{item.description}}</p>
-          <a :href="item.link" class="stretched-link" target="_blank"></a>
+        </div>
+      </div>
+    </main>
+    <!--work detail-->
+    <div class="row my-3 position-relative" v-show="isShow">
+      <div class="col-12 mb-2 d-flex justify-content-between">
+        <button class="btn btn-sm btn-outline-dark rounded-0" @click="isShow=false">
+          <span>↖</span>
+          Back
+        </button>
+        <div class="btn-group">
+          <a class="btn btn-sm btn-outline-dark rounded-0" :href="temp.codeLink" target="_blank">
+            Code
+            <span>↗</span>
+          </a>
+          <a class="btn btn-sm btn-outline-dark rounded-0" :href="temp.webLink" target="_blank">
+            Web
+            <span>↗</span>
+          </a>
+        </div>
+
+      </div>
+      <div class="col-lg-6 mb-2">
+        <div class="p-3 bg-light border border-dark">
+          <h2 class="text-center">{{temp.name}}</h2>
+          <span class="badge me-2">{{temp.skill}}</span>
+          <span class="badge">{{temp.time}}</span>
+          <ul class="m-0 ps-3">
+            <li class="m-1" v-for="item in temp.description">{{item}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="bg-light border border-dark p-3">
+          <img class="img-fluid w-100" :src="item" :alt="temp.name" v-for="item in temp.imgDetail">
         </div>
       </div>
     </div>
     <!--footer-->
     <footer>
-      <div class="border border-dark text-center py-2">copyright &copy; 2021 Anny Cheng.</div>
+      <div class="border border-dark text-center py-2">{{copyright}}</div>
     </footer>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-  <script src="script.js"></script>
   <script type="module">
-    import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.4/vue.esm-browser.min.js'
+    import { createApp, ref, computed, reactive } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.4/vue.esm-browser.min.js'
     const app = createApp({
-      data() {
-        return {
-          tagFilter: '',
-          logo: {
-            img: "https://picsum.photos/38/38?random=1",
-            name: "Anny Cheng",
+      setup() {
+        const logo = ref({
+          link: "https://chengyuu.github.io/",
+          name: "Anny Cheng",
+        })
+        const about = ref({
+          mobile: "Hey there, I'm Anny Cheng, a junior front-end developer based in Taipei, Taiwan. Please feel free to contact me via mail. ㋡",
+          desktop: [
+            "過去是個專案管理師，在都市更新領域有兩年多的工作經驗，主要負責與不同單位溝通及問題處理，讓案子在進度內順利執行。 現在則致力於網頁前端開發，透過自學習得相關技術，並具備了網頁的框架建構、切版、互動功能、響應式和串接 API 等能力。 歡迎來到我的網站，可以點擊下方的作品連結，來了解更多內容，或是透過 E-mail 聯繫我！",
+            "I used to be a project manager on urban renewal with 2.5 years experience in communication and problem-solving. Currently I'm curious about web front-end development, and have taught myself related skills, such as HTML/CSS/JavaScript, Bootstrap & Vue, also apply them to my projects. Welcome to my website, scroll down to see more."]
+        })
+        const contacts = ref([
+          {
+            name: "Email：amy853310@gmail.com",
+            link: "mailto:amy853310@gmail.com",
+            icon: "fas fa-envelope"
           },
-          about: {
-            mobile: "Hey there, I'm Anny Cheng, a beginner front-end developer based in Taipei, Taiwan.㋡",
-            desktop: "I used to be a project manager on urban renewal with 2.5 years experience in communication and problem-solving. Currently I'm curious about web front-end development & digital marketing, and have taught myself front-end skills, such as HTML/CSS/JavaScript, Bootstrap, Vue, Sass & RWD, also applyed these skills to my projects. Welcome to my website, scroll down to see more."
+          {
+            name: "LinkedIn：Yu Cheng",
+            link: "https://www.linkedin.com/in/yu-cheng-19960228/",
+            icon: "fab fa-linkedin-in"
           },
-          work: "To be filled.",
-          contacts: [
-            {
-              name: "Email：amy853310@gmail.com",
-              link: "mailto:amy853310@gmail.com",
-              icon: "fas fa-envelope"
-            },
-            {
-              name: "LinkedIn：Yu Cheng",
-              link: "https://www.linkedin.com/in/yu-cheng-19960228/",
-              icon: "fab fa-linkedin-in"
-            },
-            {
-              name: "GitHub：chengyuu",
-              link: "https://github.com/chengyuu",
-              icon: "fab fa-github"
-            },
-            {
-              name: "CodePen：chengyu0228",
-              link: "https://codepen.io/chengyu0228/",
-              icon: "fab fa-codepen"
-            },
-          ],
-          works: [
-            {
-              name: "Countries Website",
-              img: "img/countries website.png",
-              tag: {
-                skill: "Vue",
-                time: "2021"
-              },
-              description: "Used Fetch API to get data from REST COUNTRIES, and created a website to introduce countries in the world with Vue v3.",
-              link: "https://codepen.io/chengyu0228/full/OJWWLgZ"
-            },
-            {
-              name: "Funding Platform",
-              img: "img/funding platform.png",
-              tag: {
-                skill: "Bootstrap",
-                time: "2021"
-              },
-              description: "Converted design layouts to responsive website using Bootstrap v5, and customized by compiling Sass source files.",
-              link: "https://chengyuu.github.io/Bootstrap5-practice/"
-            },
-            {
-              name: "Dating Site",
-              img: "img/dating site.png",
-              tag: {
-                skill: "Vue",
-                time: "2021"
-              },
-              description: "Used axios to consume API from random user data, and imitated a dating site with Vue v3.",
-              link: "https://codepen.io/chengyu0228/full/mdmWLqz"
-            },
-            {
-              name: "JavaScript 30",
-              img: "img/whack-a-mole game.png",
-              tag: {
-                skill: "JavaScript",
-                time: "2021"
-              },
-              description: "A series of pure javascript courses from Wes Bos, creating functions like Clock, Countdown Timer, Whack-a-mole Game, etc.",
-              link: "https://chengyuu.github.io/javascript30/javascript30-30/javascript30-30.html"
-            },
-          ]
-        }
-      },
-      methods: {},
-      computed: {
-        filterWorks() {
-          const newWorks = this.works.filter(item => {
-            return item.tag.skill === this.tagFilter
+          {
+            name: "GitHub：chengyuu",
+            link: "https://github.com/chengyuu",
+            icon: "fab fa-github"
+          },
+          {
+            name: "CodePen：chengyu0228",
+            link: "https://codepen.io/chengyu0228/",
+            icon: "fab fa-codepen"
+          },
+        ])
+        const works = ref([
+          {
+            name: "Countries of the World",
+            imgCover: "img/countries website.png",
+            imgDetail: [
+              "img/countries website-play.gif"
+            ],
+            skill: "Vue",
+            time: "2021",
+            description: [
+              "此為介紹世界各國的網站，使用 Vue.js v3 架設而成，並以 Axios 套件載入 RestFul API。", "導覽列：可篩選不同地區的國家，預設顯示全部。", "內容左側：顯示篩選後的國家列表、筆數和頁數，下方按鈕可切換頁數；另外可直接於輸入框搜尋特定的國家。", "內容右側：顯示排名，分別為最多人口數和土地面積最大的國家、最多國家使用的語言和貨幣。",
+              "A website introducing countries of the world, created by Vue.js v3 and used Axios to get data from RestFul API.", "You can filter countries by region or search for specific country. It also shows ranking of population, area, languages and currencies."
+            ],
+            codeLink: "https://github.com/chengyuu/Countries-Of-The-World",
+            webLink: "https://chengyuu.github.io/Countries-Of-The-World/"
+          },
+          {
+            name: "Funding Platform",
+            imgCover: "img/funding platform.png",
+            imgDetail: [
+              "img/funding platform-play.gif"
+            ],
+            skill: "Bootstrap",
+            time: "2021",
+            description: [
+              "將募資平台的設計稿切版符合 RWD，CSS 使用 Bootstrap 5 的樣式，並且客製化修改其 Sass 原始檔案。", "JavaScript 部分：使用 Bootstrap 內建的工具提示框及表單驗證功能；另增加頁籤切換時，畫面移至對應位置。",
+              "Converted design layouts to responsive website using Bootstrap v5, and customized by compiling Sass source files.",
+              "Using Bootstrap's JavaScript plugins for function of tooltips and form validation. And add function while the tabs are clicked, the window will scroll to top."
+            ],
+            codeLink: "https://github.com/chengyuu/Bootstrap5-practice",
+            webLink: "https://chengyuu.github.io/Bootstrap5-practice/"
+          },
+          {
+            name: "Whack-A-Mole",
+            imgCover: "img/whack-a-mole.png",
+            imgDetail: [
+              "img/whack-a-mole-play.gif"
+            ],
+            skill: "JavaScript",
+            time: "2021"
+            ,
+            description: [
+              "打地鼠遊戲啟發自 Wes Bos 的 JavaScript 30 課程，網站使用純 CSS 及 JavaScript。",
+              "以資料控制畫面撰寫。將每隻地鼠的狀態預設為 false，遊戲時間內每 0.5 秒會隨機生成一個序號，將其狀態改為 true，並使用 Proxy 增加 class 來顯示畫面以及點擊後增加分數的功能，而在時間到後將該序號的狀態則會改為 false。",
+              "Whack-A-Mole was inspired by a series of JavaScript courses from Wes Bos, and was created by pure CSS & JavaScript.",
+              "The view of the game is controlled by data. Every mole has its own status, every 0.5 second will random a index during the game and change it's status to true, then use Proxy to operate the object."
+            ],
+            codeLink: "https://github.com/chengyuu/javascript30/tree/main/javascript30-30",
+            webLink: "https://chengyuu.github.io/javascript30/javascript30-30/javascript30-30.html"
+          },
+        ])
+        // 篩選作品的 skill
+        const tagFilter = ref('')
+        const filterWorks = computed(() => {
+          const newWorks = works.value.filter(item => {
+            return item.skill === tagFilter.value
           })
-          if (!this.tagFilter) return this.works
+          if (!tagFilter.value) return works.value
           return newWorks
+        })
+        // 頁面顯示切換
+        const isShow = ref(false)
+        const temp = ref({})
+        function showDetail(item) {
+          isShow.value = true
+          temp.value = { ...item }
         }
-      },
-      mounted() { },
+        // copyright 自動更新年份
+        const copyright = ref(`copyright © ${new Date().getFullYear()} Anny Cheng.`)
+        return {
+          logo,
+          about,
+          contacts,
+          works,
+          tagFilter,
+          filterWorks,
+          isShow,
+          temp,
+          showDetail,
+          copyright,
+        }
+      }
     })
     app.mount('#app')
   </script>

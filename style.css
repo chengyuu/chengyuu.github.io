@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&family=Noto+Sans+TC:wght@400;500;700&display=swap');
 body,html {
-  font-family: 'Fira Sans', sans-serif;
+  font-family: 'Noto Sans TC','Fira Sans', sans-serif;
   font-weight: 400;
 }
 body {
@@ -23,7 +23,32 @@ a, .nav-link {
   color: #212529;
   text-decoration: none;
 }
-img{
+.navbar-brand:hover svg{
+  animation: shake .2s linear infinite alternate;
+}
+@keyframes shake {
+  0% {
+    transform: rotate(-10deg);
+  }
+  100% {
+    transform: rotate(10deg);
+  }
+}
+#about>.row>.col-6:first-child{
+  border-right:1.5px solid #212529;
+}
+.badge{
+  background: #F5DD9D;
+  color: #212529;
+}
+.btn span{
+  display: none;
+  transition:all 1s;
+}
+.btn:hover span{
+  display: inline-block;
+}
+.item img{
   filter: grayscale(100%);
   transition: all .5s;
 }
@@ -50,24 +75,16 @@ header h1{
   color: #212529;
   background: #F5DD9D;
 }
-#about p{
-  column-count: 2;
-  column-gap: 5%;
-  column-rule: 1px solid #212529;
-}
 header,nav,#accordionContent,.item,footer{
   background: #f8f9fa;
   transition: all .5s;
 }
 .btn-outline-dark:hover,.item:hover{
   background: #F5DD9D;
-  transform: translateY(-5px);
 }
 .item:hover{
   box-shadow:10px 10px 0 #212529;
-}
-.btn-outline-dark:hover{  
-  box-shadow:5px 5px 0 #212529;
+  transform: translateY(-5px);
 }
 .item .badge{
   background: rgba(0, 0, 0, .8);
