@@ -64,11 +64,7 @@
     <!--desktop accordion content-->
     <div class="d-none d-md-block" id="accordionContent">
       <div class="fade accordion-collapse collapse border border-top-0 border-dark p-3" id="about">
-        <div class="row">
-          <div class="col-6" v-for="item in about.desktop">
-            {{item}}
-          </div>
-        </div>
+        {{about.desktop}}
       </div>
       <div class="fade accordion-collapse collapse border border-top-0 border-dark p-3" id="contact">
         <ul class="m-0 ps-3">
@@ -169,9 +165,7 @@
         })
         const about = ref({
           mobile: "Hey there, I'm Anny Cheng, a junior front-end developer based in Taipei, Taiwan. Please feel free to contact me via mail. ㋡",
-          desktop: [
-            "過去是個專案管理師，在都市更新領域有兩年多的工作經驗，主要負責與不同單位溝通及問題處理，讓案子在進度內順利執行。 現在則致力於網頁前端開發，透過自學習得相關技術，並具備了網頁的框架建構、切版、互動功能、響應式和串接 API 等能力。 歡迎來到我的網站，可以點擊下方的作品連結，來了解更多內容，或是透過 E-mail 聯繫我！",
-            "I used to be a project manager on urban renewal with 2.5 years experience in communication and problem-solving. Currently I'm curious about web front-end development, and have taught myself related skills, such as HTML/CSS/JavaScript, Bootstrap & Vue, also apply them to my projects. Welcome to my website, scroll down to see more."]
+          desktop: "I used to be a project manager on urban renewal with 2.5 years experience in communication and problem-solving. Currently I'm curious about web front-end development, and have taught myself related skills, such as HTML/CSS/JavaScript, Bootstrap & Vue, also apply them to my projects. Welcome to my website, scroll down to see more."
         })
         const contacts = ref([
           {
